@@ -1,16 +1,16 @@
-/*
-    Logging object :{
-        log_arguments: false,
-        log_errors: true,
-        log_responses: true
-    }
-*/
-
+/**
+ * Represents a simple Shopify cart
+ * 
+ * No external dependencies, no additional requirements
+ * Just plug n play
+ * 
+ * @class
+ */
 class ShopifyCart {
-  //https://shopify.dev/docs/api/ajax/reference/cart#post-locale-cart-update-js
 
   /**
-   *
+   * Creates an instance of the cart
+   * @constructor
    * @param {Object} logging - Set up logging
    * @param {Boolean} logging.arguments - Output arguments passed to each method
    * @param {Boolean} logging.errors - Log errors to the console
@@ -24,14 +24,29 @@ class ShopifyCart {
     };
   }
 
+  /**
+   * Logs arguments passed to a function
+   * @param {Object} obj
+   * @private 
+   */
   _logArgumentsObject(obj) {
     this.logging.arguments && console.dir(obj);
   }
 
+  /**
+   * Logs errors that may occur
+   * @param {Object} obj
+   * @private 
+   */
   _logErrorsObject(obj) {
     this.logging.errors && console.error(obj);
   }
 
+  /**
+   * Logs Shopify API responses
+   * @param {Object} obj
+   * @private 
+   */
   _logResponsesObject(obj) {
     this.logging.responses && console.dir(obj);
   }
@@ -84,8 +99,8 @@ class ShopifyCart {
   }
 
   /** Modifies quantity of a line item using line_item_key
-   * @param {String} line_item_key - Key of line item
-   * @param {Number} quantity - Updated quantity
+   * @param {String} line_item_key
+   * @param {Number} quantity - New quantity
    * @param {Object.<string,string>} [line_item_properties] - Key-value pairs of line item properties
    * @param {Number} [selling_plan] - ID of selling plan
    * @returns {Promise} - Returns API response
@@ -141,6 +156,7 @@ class ShopifyCart {
    * @param {Number} quantity - Updated quantity
    * @param {Object.<string,string>} [line_item_properties] - Key-value pairs of line item properties
    * @param {Number} [selling_plan] - ID of selling plan
+   * @returns {Promise} - Returns API response
    */
   async modifyCartItemByIndex(
     index,
@@ -268,6 +284,7 @@ class ShopifyCart {
    *  Update the cart note and attributes
    *  @param {String} note - Cart note. Pass undefined if want to leave as is
    *  @param {Object.<string,string>} attributes - Cart attributes. Pass undefined if want to leave as is
+   *  @returns {Promise} - Returns API response
    */
   async updateCart(note, attributes) {
     this._logArgumentsObject({
@@ -308,6 +325,7 @@ class ShopifyCart {
 
   /**
    * Remove all items from cart
+   * @returns {Promise} - Returns API response
    */
   async clearCart() {
     try {
@@ -333,7 +351,7 @@ class ShopifyCart {
    * @param {String} zip
    * @param {String} country
    * @param {String} province
-   * @returns {Promise}
+   * @returns {Promise} - Returns API response
    */
   async generateShippingRates(zip, country, province) {
     this._logArgumentsObject({
@@ -362,6 +380,14 @@ class ShopifyCart {
     }
   }
 
+  /**
+   * Get shipping rates
+   * Use the generateShippingRates function to calculate the rates
+   * @param {String} zip
+   * @param {String} country
+   * @param {String} province
+   * @returns {Promise} - Returns API response
+   */
   async getShippingRates(zip, country, province) {
     this._logArgumentsObject({
       function: 'getShippingRates',
