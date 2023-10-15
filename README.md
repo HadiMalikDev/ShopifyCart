@@ -39,7 +39,7 @@ Adds an item to the cart
 #### Parameters
 
 *   `variant_id` **[Number][20]**&#x20;
-*   `quantity` **[Number][20]?** Quantity of variant to be added. Defaults to 1 (optional, default `1`)
+*   `quantity` **[Number][20]?** Quantity of variant to be added (optional, default `1`)
 *   `line_item_properties` **[Object][19]<[string][21], [string][21]>?** Key-value pairs of line item properties
 *   `selling_plan` **[Number][20]?** ID of selling plan
 
@@ -108,7 +108,8 @@ Returns **[Promise][22]** Returns API response
 
 ### generateShippingRates
 
-Generates shipping rates
+Generates shipping rates.
+
 Use the getShippingRates function to retrieve rates once calculations are complete
 
 #### Parameters
@@ -121,7 +122,8 @@ Returns **[Promise][22]** Returns API response
 
 ### getShippingRates
 
-Get shipping rates
+Get calculated shipping rates.
+
 Use the generateShippingRates function to calculate the rates
 
 #### Parameters
