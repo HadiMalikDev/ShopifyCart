@@ -53,7 +53,7 @@ class ShopifyCart {
 
   /** Adds an item to the cart
    *  @param {Number} variant_id
-   *  @param {Number} [quantity] - Quantity of variant to be added. Defaults to 1
+   *  @param {Number} [quantity] - Quantity of variant to be added.
    *  @param {Object.<string,string>} [line_item_properties] - Key-value pairs of line item properties
    *  @param {Number} [selling_plan] - ID of selling plan
    *  @returns {Promise} - Returns API response
