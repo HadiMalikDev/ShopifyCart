@@ -1,22 +1,23 @@
 /**
  * Represents a simple Shopify cart
- * 
+ *
  * No external dependencies, no additional requirements
  * Just plug n play
- * 
+ *
  * @class
  */
 class ShopifyCart {
-
   /**
    * Creates an instance of the cart
    * @constructor
+   * @param {String} root_url - Locale aware root URL. Most commonly accessed using `window.Shopify.routes.root`
    * @param {Object} logging - Set up logging
    * @param {Boolean} logging.arguments - Output arguments passed to each method
    * @param {Boolean} logging.errors - Log errors to the console
    * @param {Boolean} logging.responses - Log API responses
    */
-  constructor(logging) {
+  constructor(root_url = '/', logging) {
+    this.root_url = root_url;
     this.logging = {
       arguments: logging.arguments ?? false,
       errors: logging.errors ?? false,
@@ -27,7 +28,7 @@ class ShopifyCart {
   /**
    * Logs arguments passed to a function
    * @param {Object} obj
-   * @private 
+   * @private
    */
   _logArgumentsObject(obj) {
     this.logging.arguments && console.dir(obj);
@@ -36,7 +37,7 @@ class ShopifyCart {
   /**
    * Logs errors that may occur
    * @param {Object} obj
-   * @private 
+   * @private
    */
   _logErrorsObject(obj) {
     this.logging.errors && console.error(obj);
@@ -45,7 +46,7 @@ class ShopifyCart {
   /**
    * Logs Shopify API responses
    * @param {Object} obj
-   * @private 
+   * @private
    */
   _logResponsesObject(obj) {
     this.logging.responses && console.dir(obj);
@@ -75,7 +76,7 @@ class ShopifyCart {
     selling_plan && (item.selling_plan = selling_plan);
 
     try {
-      const response = await fetch('/cart/add.js', {
+      const response = await fetch(this.root_url + 'cart/add.js', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -130,7 +131,7 @@ class ShopifyCart {
     selling_plan & (body.selling_plan = selling_plan);
 
     try {
-      const response = await fetch('/cart/change.js', {
+      const response = await fetch(this.root_url + 'cart/change.js', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -183,7 +184,7 @@ class ShopifyCart {
     selling_plan & (body.selling_plan = selling_plan);
 
     try {
-      const response = await fetch('/cart/change.js', {
+      const response = await fetch(this.root_url + 'cart/change.js', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -236,7 +237,7 @@ class ShopifyCart {
     selling_plan & (body.selling_plan = selling_plan);
 
     try {
-      const response = await fetch('/cart/change.js', {
+      const response = await fetch(this.root_url + 'cart/change.js', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -264,7 +265,7 @@ class ShopifyCart {
    */
   async getCart() {
     try {
-      const response = await fetch('/cart.js');
+      const response = await fetch(this.root_url + 'cart.js');
       const response_body = await response.json();
 
       this._logResponsesObject({
@@ -300,7 +301,7 @@ class ShopifyCart {
     attributes && (body.attributes = attributes);
 
     try {
-      const response = await fetch('/cart/update.js', {
+      const response = await fetch(this.root_url + 'cart/update.js', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -329,7 +330,7 @@ class ShopifyCart {
    */
   async clearCart() {
     try {
-      const response = await fetch('/cart/clear.js');
+      const response = await fetch(this.root_url + 'cart/clear.js');
       const response_body = await response.json();
 
       this._logResponsesObject({
@@ -361,7 +362,8 @@ class ShopifyCart {
 
     try {
       const response = await fetch(
-        `/cart/prepare_shipping_rates.json?shipping_address[zip]=${zip}&shipping_address[country]=${country}&shipping_address[province]=${province}`,
+        this.root_url +
+          `cart/prepare_shipping_rates.json?shipping_address[zip]=${zip}&shipping_address[country]=${country}&shipping_address[province]=${province}`,
         { method: 'POST' }
       );
 
@@ -396,7 +398,8 @@ class ShopifyCart {
 
     try {
       const response = await fetch(
-        `/cart/async_shipping_rates.json?shipping_address[zip]=${zip}&shipping_address[country]=${country}&shipping_address[province]=${province}`
+        this.root_url +
+          `cart/async_shipping_rates.json?shipping_address[zip]=${zip}&shipping_address[country]=${country}&shipping_address[province]=${province}`
       );
 
       const response_body = await response.json();
