@@ -25,12 +25,12 @@
 
 Represents a simple Shopify cart
 
-No external dependencies, no additional requirements
-Just plug n play
+Uses the `fetch` API
 
 ### Parameters
 
-*   `logging` **[Object][19]** Set up logging
+*   `root_url` **[String][19]** Locale aware root URL. Most commonly accessed using `window.Shopify.routes.root` (optional, default `'/'`)
+*   `logging` **[Object][20]** Set up logging (optional, default `{}`)
 
 ### addItem
 
@@ -38,10 +38,10 @@ Adds an item to the cart
 
 #### Parameters
 
-*   `variant_id` **[Number][20]**&#x20;
-*   `quantity` **[Number][20]?** Quantity of variant to be added (optional, default `1`)
-*   `line_item_properties` **[Object][19]<[string][21], [string][21]>?** Key-value pairs of line item properties
-*   `selling_plan` **[Number][20]?** ID of selling plan
+*   `variant_id` **[Number][21]**&#x20;
+*   `quantity` **[Number][21]?** Quantity of variant to be added. (optional, default `1`)
+*   `line_item_properties` **[Object][20]<[string][19], [string][19]>?** Key-value pairs of line item properties
+*   `selling_plan` **[Number][21]?** ID of selling plan
 
 Returns **[Promise][22]** Returns API response
 
@@ -51,10 +51,10 @@ Modifies quantity of a line item using line\_item\_key
 
 #### Parameters
 
-*   `line_item_key` **[String][21]**&#x20;
-*   `quantity` **[Number][20]** New quantity
-*   `line_item_properties` **[Object][19]<[string][21], [string][21]>?** Key-value pairs of line item properties
-*   `selling_plan` **[Number][20]?** ID of selling plan
+*   `line_item_key` **[String][19]**&#x20;
+*   `quantity` **[Number][21]** New quantity
+*   `line_item_properties` **[Object][20]<[string][19], [string][19]>?** Key-value pairs of line item properties
+*   `selling_plan` **[Number][21]?** ID of selling plan
 
 Returns **[Promise][22]** Returns API response
 
@@ -64,10 +64,10 @@ Modifies quantity of a line item based on 1-based index position of the item in 
 
 #### Parameters
 
-*   `index` **[Number][20]** 1-based index of item in cart
-*   `quantity` **[Number][20]** Updated quantity
-*   `line_item_properties` **[Object][19]<[string][21], [string][21]>?** Key-value pairs of line item properties
-*   `selling_plan` **[Number][20]?** ID of selling plan
+*   `index` **[Number][21]** 1-based index of item in cart
+*   `quantity` **[Number][21]** Updated quantity
+*   `line_item_properties` **[Object][20]<[string][19], [string][19]>?** Key-value pairs of line item properties
+*   `selling_plan` **[Number][21]?** ID of selling plan
 
 Returns **[Promise][22]** Returns API response
 
@@ -77,60 +77,60 @@ Modifies quantity of a line item based on variant id
 
 #### Parameters
 
-*   `variant_id` **[String][21]** Variant ID of item in cart
-*   `quantity` **[Number][20]** New quantity of item
-*   `line_item_properties` **[Object][19]<[string][21], [string][21]>** Properties of the cart item
+*   `variant_id` **[String][19]** Variant ID of item in cart
+*   `quantity` **[Number][21]** New quantity of item
+*   `line_item_properties` **[Object][20]<[string][19], [string][19]>** Properties of the cart item
 *   `selling_plan` &#x20;
 *   `Number` &#x20;
+
+Returns **[Promise][22]** Returns API response
 
 ### getCart
 
 Fetches cart
 
-Returns **[Object][19]** Contents of cart
+Returns **[Promise][22]** Returns API response
 
 ### updateCart
 
-Update the cart note and attributes
+Updates the cart note and attributes
 
 #### Parameters
 
-*   `note` **[String][21]** Cart note. Pass undefined if want to leave as is
-*   `attributes` **[Object][19]<[string][21], [string][21]>** Cart attributes. Pass undefined if want to leave as is
+*   `note` **[String][19]** Cart note. Pass undefined if want to leave as is
+*   `attributes` **[Object][20]<[string][19], [string][19]>** Cart attributes. Pass undefined if want to leave as is
 
 Returns **[Promise][22]** Returns API response
 
 ### clearCart
 
-Remove all items from cart
+Removes all items from cart.
 
 Returns **[Promise][22]** Returns API response
 
 ### generateShippingRates
 
-Generates shipping rates.
-
+Generates shipping rates
 Use the getShippingRates function to retrieve rates once calculations are complete
 
 #### Parameters
 
-*   `zip` **[String][21]**&#x20;
-*   `country` **[String][21]**&#x20;
-*   `province` **[String][21]**&#x20;
+*   `zip` **[String][19]**&#x20;
+*   `country` **[String][19]**&#x20;
+*   `province` **[String][19]**&#x20;
 
 Returns **[Promise][22]** Returns API response
 
 ### getShippingRates
 
-Get calculated shipping rates.
-
+Gets shipping rates
 Use the generateShippingRates function to calculate the rates
 
 #### Parameters
 
-*   `zip` **[String][21]**&#x20;
-*   `country` **[String][21]**&#x20;
-*   `province` **[String][21]**&#x20;
+*   `zip` **[String][19]**&#x20;
+*   `country` **[String][19]**&#x20;
+*   `province` **[String][19]**&#x20;
 
 Returns **[Promise][22]** Returns API response
 
@@ -170,10 +170,10 @@ Returns **[Promise][22]** Returns API response
 
 [18]: #parameters-7
 
-[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
 [22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
