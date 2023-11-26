@@ -1,6 +1,6 @@
 {
   "name": "shopifycart",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A plug and play shopify cart",
   "main": "shopify-cart.js",
   "scripts": {
@@ -20,7 +20,5 @@
     "url": "https://github.com/HadiMalikDev/ShopifyCart/issues"
   },
   "homepage": "https://github.com/HadiMalikDev/ShopifyCart#readme",
-  "dependencies": {
-    "jsdoc": "^4.0.2"
-  }
+  "dependencies": {}
 }

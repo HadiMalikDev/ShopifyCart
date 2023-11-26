@@ -1,22 +1,21 @@
 /**
  * Represents a simple Shopify cart
  *
- * No external dependencies, no additional requirements
- * Just plug n play
+ * Uses the `fetch` API
  *
  * @class
  */
-class ShopifyCart {
+export class ShopifyCart {
   /**
    * Creates an instance of the cart
    * @constructor
-   * @param {String} root_url - Locale aware root URL. Most commonly accessed using `window.Shopify.routes.root`
+   * @param {String} [root_url='/'] - Locale aware root URL. Most commonly accessed using `window.Shopify.routes.root`
    * @param {Object} logging - Set up logging
-   * @param {Boolean} logging.arguments - Output arguments passed to each method
+   * @param {Boolean} logging.arguments - Log arguments for each called method to the console
    * @param {Boolean} logging.errors - Log errors to the console
-   * @param {Boolean} logging.responses - Log API responses
+   * @param {Boolean} logging.responses - Log API responses to the console
    */
-  constructor(root_url = '/', logging) {
+  constructor(root_url = '/', logging = {}) {
     this.root_url = root_url;
     this.logging = {
       arguments: logging.arguments ?? false,
@@ -24,10 +23,9 @@ class ShopifyCart {
       responses: logging.responses ?? false,
     };
   }
-
   /**
-   * Logs arguments passed to a function
-   * @param {Object} obj
+   * Logs arguments passed to a method
+   * @param {*} obj
    * @private
    */
   _logArgumentsObject(obj) {
@@ -36,7 +34,7 @@ class ShopifyCart {
 
   /**
    * Logs errors that may occur
-   * @param {Object} obj
+   * @param {*} obj
    * @private
    */
   _logErrorsObject(obj) {
@@ -45,7 +43,7 @@ class ShopifyCart {
 
   /**
    * Logs Shopify API responses
-   * @param {Object} obj
+   * @param {*} obj
    * @private
    */
   _logResponsesObject(obj) {
@@ -211,6 +209,7 @@ class ShopifyCart {
    * @param {Number} quantity - New quantity of item
    * @param {Object.<string,string>} line_item_properties - Properties of the cart item
    * @param {Number}
+   * @returns {Promise} - Returns API response
    */
   async modifyCartItemByID(
     variant_id,
@@ -261,7 +260,7 @@ class ShopifyCart {
 
   /**
    * Fetches cart
-   * @returns {Object} Contents of cart
+   * @returns {Promise} - Returns API response
    */
   async getCart() {
     try {
@@ -282,7 +281,7 @@ class ShopifyCart {
   }
 
   /**
-   *  Update the cart note and attributes
+   *  Updates the cart note and attributes
    *  @param {String} note - Cart note. Pass undefined if want to leave as is
    *  @param {Object.<string,string>} attributes - Cart attributes. Pass undefined if want to leave as is
    *  @returns {Promise} - Returns API response
@@ -325,7 +324,7 @@ class ShopifyCart {
   }
 
   /**
-   * Remove all items from cart
+   * Removes all items from cart.
    * @returns {Promise} - Returns API response
    */
   async clearCart() {
@@ -383,7 +382,7 @@ class ShopifyCart {
   }
 
   /**
-   * Get shipping rates
+   * Gets shipping rates
    * Use the generateShippingRates function to calculate the rates
    * @param {String} zip
    * @param {String} country
