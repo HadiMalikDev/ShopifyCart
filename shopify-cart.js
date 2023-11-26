@@ -5,7 +5,7 @@
  *
  * @class
  */
-export class ShopifyCart {
+const ShopifyCart = class ShopifyCart {
   /**
    * Creates an instance of the cart
    * @constructor
@@ -415,4 +415,8 @@ export class ShopifyCart {
       throw Error('Could not complete action. Please see logs for details');
     }
   }
+};
+
+if (typeof exports != 'undefined') {
+  exports.ShopifyCart = ShopifyCart;
 }
